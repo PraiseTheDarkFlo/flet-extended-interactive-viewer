@@ -1,0 +1,7 @@
+site_name: FletExtendedInteractiveViewer
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
