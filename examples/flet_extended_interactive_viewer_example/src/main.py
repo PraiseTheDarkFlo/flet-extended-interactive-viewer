@@ -15,7 +15,7 @@ def main(page: ft.Page):
         ft.Column([ft.Container(ft.Text("TEST"),width=300,height=100),
                 FletExtendedInteractiveViewer(
                     content=ft.Container(text,width=3000,height=1000,bgcolor=ft.Colors.PINK),
-                    width=300, height=150,
+                    width=300, height=150,constrained=False,
                     on_interaction_update=lambda e,txt=text: on_update(e,text),
                 ),
                 ])

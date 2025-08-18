@@ -96,7 +96,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
 
     Widget interactive_viewer = InteractiveViewer(
         transformationController: _transformationController,
-        boundaryMargin: EdgeInsets.all(0),
+        boundaryMargin: EdgeInsets.zero,
         minScale: widget.control.attrDouble("max_scale",2.5)!,
         maxScale: widget.control.attrDouble("min_scale",0.8)!,
         scaleEnabled: widget.control.attrBool("scale_enabled", true)!,
