@@ -30,7 +30,6 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
   final TransformationController _transformationController = TransformationController();
   late AnimationController _animationController;
   Animation<Matrix4>? _animation;
-  int _interactionUpdateTimestamp = DateTime.now().millisecondsSinceEpoch;
 
   @override
   void initState() {
@@ -104,22 +103,16 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         constrained: widget.control.attrBool("constrained", true)!,
         onInteractionUpdate: !widget.control.isDisabled
           ? (ScaleUpdateDetails details) {
-              var interactionUpdateInterval = widget.control.attrInt("interaction_update_interval", 200)!;
-              var now = DateTime.now().millisecondsSinceEpoch;
-              if (now - _interactionUpdateTimestamp >
-                  interactionUpdateInterval) {
-                _interactionUpdateTimestamp = now;
-                final translation = _transformationController.value.getTranslation();
-                double offset_x = translation.x;
-                double offset_y = translation.y;
-                double scale = _transformationController.value.getMaxScaleOnAxis();
-                final eventData = {
-                  "offset_x": offset_x,
-                  "offset_y": offset_y,
-                  "scale": scale,
-                };
-                widget.backend.triggerControlEvent(widget.control.id,"interaction_update", json.encode(eventData));
-              }
+              final translation = _transformationController.value.getTranslation();
+              double offset_x = translation.x;
+              double offset_y = translation.y;
+              double scale = _transformationController.value.getMaxScaleOnAxis();
+              final eventData = {
+                "offset_x": offset_x,
+                "offset_y": offset_y,
+                "scale": scale,
+              };
+              widget.backend.triggerControlEvent(widget.control.id,"interaction_update", json.encode(eventData));
             }
           : null,
         child: content_widget ?? const ErrorControl(
