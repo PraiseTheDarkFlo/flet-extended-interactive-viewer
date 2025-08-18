@@ -48,6 +48,17 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
               _transformationController.value.scaled(factor, factor);
         }
         return null;
+      case "get_transformation_data":
+        final translation = _transformationController.value.getTranslation();
+        double offset_x = translation.x;
+        double offset_y = translation.y;
+        double scale = _transformationController.value.getMaxScaleOnAxis();
+        final eventData = {
+          "offset_x": offset_x,
+          "offset_y": offset_y,
+          "scale": scale,
+        };
+        return  json.encode(eventData);
       case "reset":
         var animationDuration = Duration(milliseconds: int.tryParse(args["animation_duration"] ?? "0") ?? 0);
         if (animationDuration == 0) {

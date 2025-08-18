@@ -57,7 +57,6 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             scale: Optional[ScaleValue] = None,
             offset: Optional[OffsetValue] = None,
             aspect_ratio: OptionalNumber = None,
-            interaction_update_interval: Optional[int] = None,
             animate_opacity: Optional[AnimationValue] = None,
             animate_size: Optional[AnimationValue] = None,
             animate_position: Optional[AnimationValue] = None,
@@ -117,10 +116,8 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         self.constrained = constrained
         self.max_scale = max_scale
         self.min_scale = min_scale
-        self.interaction_update_interval = interaction_update_interval
         self.scale_factor = scale_factor
         self.on_interaction_update = on_interaction_update
-
 
     def before_update(self):
         super().before_update()
@@ -135,6 +132,14 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             self.__content._set_attr_internal("n", "content")
             children.append(self.__content)
         return children
+
+    def get_transformation_data(self):
+        data = self.invoke_method("get_transformation_data", {}, wait_for_result=True)
+        d = json.loads(data)
+        offset_x: float = d.get("offset_x")
+        offset_y: float = d.get("offset_y")
+        scale: float = d.get("scale")
+        return offset_x, offset_y, scale
 
     def reset(self, animation_duration: Optional[DurationValue] = None):
         self.invoke_method(
@@ -164,16 +169,6 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         assert value is None or value > 0, "max_scale must be greater than 0"
         self._set_attr("maxScale", value)
 
-    # interaction_update_interval
-    @property
-    def interaction_update_interval(self) -> int:
-        return self._get_attr(
-            "interactionUpdateInterval", data_type="int", def_value=200
-        )
-
-    @interaction_update_interval.setter
-    def interaction_update_interval(self, value: Optional[int]):
-        self._set_attr("interactionUpdateInterval", value)
 
     # content property
     @property

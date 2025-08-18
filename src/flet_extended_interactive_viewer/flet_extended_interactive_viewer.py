@@ -119,7 +119,6 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         self.scale_factor = scale_factor
         self.on_interaction_update = on_interaction_update
 
-
     def before_update(self):
         super().before_update()
         assert self.__content.visible, "content must be visible"
@@ -133,6 +132,14 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             self.__content._set_attr_internal("n", "content")
             children.append(self.__content)
         return children
+
+    def get_transformation_data(self):
+        data = self.invoke_method("get_transformation_data", {}, wait_for_result=True)
+        d = json.loads(data)
+        offset_x: float = d.get("offset_x")
+        offset_y: float = d.get("offset_y")
+        scale: float = d.get("scale")
+        return offset_x, offset_y, scale
 
     def reset(self, animation_duration: Optional[DurationValue] = None):
         self.invoke_method(
