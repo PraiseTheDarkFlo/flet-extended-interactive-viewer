@@ -173,8 +173,8 @@
         <entry key="flutter">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/3.29.2/packages/flutter/lib" />
               <option value="$USER_HOME$/flutter/packages/flutter/lib" />
+              <option value="$USER_HOME$/flutter/3.29.2/packages/flutter/lib" />
             </list>
           </value>
         </entry>
@@ -195,16 +195,16 @@
         <entry key="flutter_lints">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib" />
             </list>
           </value>
         </entry>
         <entry key="flutter_localizations">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/3.29.2/packages/flutter_localizations/lib" />
               <option value="$USER_HOME$/flutter/packages/flutter_localizations/lib" />
+              <option value="$USER_HOME$/flutter/3.29.2/packages/flutter_localizations/lib" />
             </list>
           </value>
         </entry>
@@ -253,8 +253,8 @@
         <entry key="flutter_web_plugins">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/3.29.2/packages/flutter_web_plugins/lib" />
               <option value="$USER_HOME$/flutter/packages/flutter_web_plugins/lib" />
+              <option value="$USER_HOME$/flutter/3.29.2/packages/flutter_web_plugins/lib" />
             </list>
           </value>
         </entry>
@@ -303,8 +303,8 @@
         <entry key="intl">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.19.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.20.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.19.0/lib" />
             </list>
           </value>
         </entry>
@@ -346,8 +346,8 @@
         <entry key="lints">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/lints-3.0.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
             </list>
           </value>
         </entry>
@@ -634,8 +634,8 @@
         <entry key="sky_engine">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/3.29.2/bin/cache/pkg/sky_engine/lib" />
               <option value="$USER_HOME$/flutter/bin/cache/pkg/sky_engine/lib" />
+              <option value="$USER_HOME$/flutter/3.29.2/bin/cache/pkg/sky_engine/lib" />
             </list>
           </value>
         </entry>
@@ -789,8 +789,8 @@
         <entry key="vector_math">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.2.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
             </list>
           </value>
         </entry>
@@ -825,8 +825,8 @@
         <entry key="web_socket_channel">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/web_socket_channel-2.4.5/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/web_socket_channel-2.4.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/web_socket_channel-2.4.5/lib" />
             </list>
           </value>
         </entry>
@@ -847,8 +847,8 @@
         <entry key="win32">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.13.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.14.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.13.0/lib" />
             </list>
           </value>
         </entry>

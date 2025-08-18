@@ -3,7 +3,6 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/examples/flet_extended_interactive_viewer_example/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/examples/flet_extended_2d_viewer_example/build/flutter/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/examples/flet_extended_2d_viewer_example/build/flutter/.pub" />
