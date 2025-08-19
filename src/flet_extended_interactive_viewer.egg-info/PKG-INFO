@@ -9,7 +9,7 @@ Project-URL: Repository, https://github.com/MyGithubAccount/flet-extended-intera
 Project-URL: Issues, https://github.com/MyGithubAccount/flet-extended-interactive-viewer/issues
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
-Requires-Dist: flet>=0.28.3
+Requires-Dist: flet>=0.25.2
 
 # flet-extended-interactive-viewer
 FletExtendedInteractiveViewer control for Flet

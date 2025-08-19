@@ -32,6 +32,10 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         self,
             #special
             content: Control,
+            x_scroll_enabled: Optional[bool] = None,
+            y_scroll_enabled: Optional[bool] = None,
+            interactive_scroll_enabled: Optional[bool] = None,
+            pan_enabled: Optional[bool] = None,
             max_scale: OptionalNumber = None,
             min_scale: OptionalNumber = None,
             scale_factor: OptionalNumber = None,
@@ -112,6 +116,10 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         )
 
         self.content = content
+        self.x_scroll_enabled = x_scroll_enabled
+        self.y_scroll_enabled = y_scroll_enabled
+        self.interactive_scroll_enabled = interactive_scroll_enabled
+        self.pan_enabled = pan_enabled
         self.scale_enabled = scale_enabled
         self.constrained = constrained
         self.max_scale = max_scale
@@ -148,6 +156,42 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
 
     def zoom(self, factor: Number):
         self.invoke_method("zoom", arguments={"factor": str(factor)})
+
+    # pan_enabled
+    @property
+    def pan_enabled(self) -> bool:
+        return self._get_attr("panEnabled", data_type="bool", def_value=True)
+
+    @pan_enabled.setter
+    def pan_enabled(self, value: Optional[bool]):
+        self._set_attr("panEnabled", value)
+
+    # x_scroll_enabled
+    @property
+    def x_scroll_enabled(self) -> bool:
+        return self._get_attr("xScrollEnabled", data_type="bool", def_value=True)
+
+    @x_scroll_enabled.setter
+    def x_scroll_enabled(self, value: Optional[bool]):
+        self._set_attr("xScrollEnabled", value)
+
+    # y_scroll_enabled
+    @property
+    def y_scroll_enabled(self) -> bool:
+        return self._get_attr("yScrollEnabled", data_type="bool", def_value=True)
+
+    @y_scroll_enabled.setter
+    def y_scroll_enabled(self, value: Optional[bool]):
+        self._set_attr("yScrollEnabled", value)
+
+    # interactive_scroll_enabled
+    @property
+    def interactive_scroll_enabled(self) -> bool:
+        return self._get_attr("interactiveScrollEnabled", data_type="bool", def_value=True)
+
+    @interactive_scroll_enabled.setter
+    def interactive_scroll_enabled(self, value: Optional[bool]):
+        self._set_attr("interactiveScrollEnabled", value)
 
     # min_scale
     @property

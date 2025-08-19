@@ -1,30 +1,52 @@
 import flet as ft
 
-from flet_extended_interactive_viewer import FletExtendedInteractiveViewer,ExtendedInteractiveViewerUpdateEvent
+from flet_extended_interactive_viewer import FletExtendedInteractiveViewer
 
 
 def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    text = ft.Text("TEST")
-    def on_update(e:ExtendedInteractiveViewerUpdateEvent,text2:ft.Text):
-        text2.value = e.offset_x
-        text2.update()
+    text = ft.Text("MOVE ME",size=50)
 
-    def on_click(ex:FletExtendedInteractiveViewer=None):
-        x,y,scale = ex.get_transformation_data()
-        print(x,y,scale)
+    def on_click(ex:FletExtendedInteractiveViewer=None,text_move:ft.Text=None):
+        if ex.pan_enabled:
+            ex.pan_enabled = False
+            text_move.value = "PAN DISABLED"
+        else:
+            ex.pan_enabled = True
+            text_move.value = "MOVE ME"
+        ex.update()
+        text_move.update()
 
+    def get_transformation_click(ex:FletExtendedInteractiveViewer=None,text_update:ft.Text=None):
+        x, y, scale = ex.get_transformation_data()
+        text_update.value = f"offset_x={round(x)}, offset_y={round(y)}, scale={scale}"
+        text_update.update()
+    def toggle_scroll_x(ex:FletExtendedInteractiveViewer=None):
+        ex.x_scroll_enabled = not ex.x_scroll_enabled
+        ex.update()
+    def toggle_scroll_y(ex: FletExtendedInteractiveViewer = None):
+        ex.y_scroll_enabled = not ex.y_scroll_enabled
+        ex.update()
+
+    def toggle_interactive(ex: FletExtendedInteractiveViewer = None):
+        ex.interactive_scroll_enabled = not ex.interactive_scroll_enabled
+        ex.update()
     extended = FletExtendedInteractiveViewer(
-                    content=ft.Container(text,width=3000,height=1000,bgcolor=ft.Colors.PINK),
-                    width=300, height=150,constrained=False,
-                    on_interaction_update=lambda e,txt=text: on_update(e,text),
+                    content=ft.Container(text,width=500,height=500,gradient=ft.LinearGradient(
+                        begin=ft.alignment.top_left,
+                        end=ft.alignment.bottom_right,
+                        colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                    )),
+                    width=300, height=150,constrained=False,pan_enabled=True,
                 )
+    text_x_y_scale = ft.Text("offset_x=?, offset_y=?, scale=?")
     page.add(
-        ft.Column([ft.Container(ft.Text("TEST"),width=300,height=100),
+        ft.Column([text_x_y_scale,
                 extended,
-                   ft.Button("test",on_click=lambda e,ex=extended:on_click(ex))
-                ])
+                   ft.Button("toggle pan",on_click=lambda e,ex=extended,text_move=text:on_click(ex,text_move)),ft.Button("toggle scroll_bar_x",on_click=lambda e,ex=extended:toggle_scroll_x(ex)),ft.Button("toggle scroll_bar_y",on_click=lambda e,ex=extended:toggle_scroll_y(ex)),ft.Button("toggle interactive_scroll_bar",on_click=lambda e,ex=extended:toggle_interactive(ex)),
+                   ft.Button("get_transformation",on_click=lambda e,ex=extended,x_y_scale=text_x_y_scale:get_transformation_click(ex,text_x_y_scale)),
+                ],alignment=ft.MainAxisAlignment.CENTER)
 
     )
 
