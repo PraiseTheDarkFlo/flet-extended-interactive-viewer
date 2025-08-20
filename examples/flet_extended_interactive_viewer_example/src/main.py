@@ -41,12 +41,12 @@ def main(page: ft.Page):
                     width=300, height=150,constrained=False,pan_enabled=True,
                 )
     text_x_y_scale = ft.Text("offset_x=?, offset_y=?, scale=?")
-    page.add(
+    page.add(ft.Row([
         ft.Column([text_x_y_scale,
                 extended,
-                   ft.Button("toggle pan",on_click=lambda e,ex=extended,text_move=text:on_click(ex,text_move)),ft.Button("toggle scroll_bar_x",on_click=lambda e,ex=extended:toggle_scroll_x(ex)),ft.Button("toggle scroll_bar_y",on_click=lambda e,ex=extended:toggle_scroll_y(ex)),ft.Button("toggle interactive_scroll_bar",on_click=lambda e,ex=extended:toggle_interactive(ex)),
+                   ft.Row([ft.Button("toggle pan",on_click=lambda e,ex=extended,text_move=text:on_click(ex,text_move)),ft.Button("toggle interactive_scroll_bar",on_click=lambda e,ex=extended:toggle_interactive(ex))]),ft.Row([ft.Button("toggle scroll_bar_x",on_click=lambda e,ex=extended:toggle_scroll_x(ex)),ft.Button("toggle scroll_bar_y",on_click=lambda e,ex=extended:toggle_scroll_y(ex))]),
                    ft.Button("get_transformation",on_click=lambda e,ex=extended,x_y_scale=text_x_y_scale:get_transformation_click(ex,text_x_y_scale)),
-                ],alignment=ft.MainAxisAlignment.CENTER)
+                ],alignment=ft.MainAxisAlignment.CENTER)],alignment=ft.MainAxisAlignment.CENTER),
 
     )
 
