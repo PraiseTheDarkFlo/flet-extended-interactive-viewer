@@ -4,6 +4,7 @@ import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
+// child class to handle size change event
 class _ChildSize extends StatefulWidget {
   final Widget child;
   final Function(Size) onSizeChanged;
@@ -55,9 +56,9 @@ class FletExtendedInteractiveViewerControl extends StatefulWidget {
       _FletExtendedInteractiveViewerControlState();
 }
 
-//State control with state attributes
+// state control with state attributes
 class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInteractiveViewerControl> with SingleTickerProviderStateMixin{
-
+  // attributes
   final TransformationController _transformationController = TransformationController();
   late AnimationController _animationController;
   Animation<Matrix4>? _animation;
@@ -67,6 +68,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
   final ScrollController _verticalScrollController = ScrollController();
   Size? _childSize;
   Size? _viewportSize;
+  double? _scale;
 
   @override
   void initState() {
@@ -138,7 +140,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         throw Exception("Unknown ExtendedInteractiveViewer method: $method_name");
     }
   }
-
+  // handles when the transformation of the interactive_viewer got changed
   void _onTransformationChanged() {
     if (_ignoreTransformationChange) return;
     if (_viewportSize == null || _childSize == null) return;
@@ -155,12 +157,19 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     double scrollX = (-translation.x).clamp(0.0, maxScrollX);
     double scrollY = (-translation.y).clamp(0.0, maxScrollY);
 
-    _ignorScroll = true;
+    _ignorScroll = true; // prevent loop
     _horizontalScrollController.jumpTo(scrollX);
     _verticalScrollController.jumpTo(scrollY);
+    // check if scale changed so rebuild to generate new slider for the new scale
+    if (mounted && scale != _scale) {
+      setState(() {
+        // rebuild
+      });
+    }
     _ignorScroll = false;
   }
 
+  // handles when the scrollbars got scrolled
   void _onScroll() {
     if (_ignorScroll) return;
     if (_viewportSize == null || _childSize == null) return;
@@ -174,7 +183,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     }
     double scale = _transformationController.value.getMaxScaleOnAxis();
 
-    _ignoreTransformationChange = true;
+    _ignoreTransformationChange = true; // prevent loop
     Matrix4 newMatrix = Matrix4.identity()
     ..scale(scale, scale)
     ..translate(-scrollX / scale, -scrollY / scale);
@@ -182,6 +191,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     _ignoreTransformationChange = false;
   }
 
+  // update if size of child changed
   void _onChildSizeChanged(Size size) {
     if (size != _childSize) {
       setState(() {
@@ -191,9 +201,10 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     }
   }
 
-  //clean up method
+  // clean up method
   @override
   void dispose() {
+    // clean up all attributes which has objects and/or has listener assigned
     _transformationController.removeListener(_onTransformationChanged);
     _transformationController.dispose();
     _animationController.dispose();
@@ -202,14 +213,15 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     _horizontalScrollController.removeListener(_onScroll);
     _horizontalScrollController.dispose();
 
-    //unsubscribe so no longer methode call gets forwarded
+    // unsubscribe so no longer methode call gets forwarded
     widget.backend.unsubscribeMethods(widget.control.id);
     super.dispose();
   }
 
-  //build content methode
   @override
   Widget build(BuildContext context) {
+
+    // get child for interactive_viewer
     final contentCtrls = widget.children
     .where((c) => c.name == "content" && c.isVisible)
     .toList();
@@ -221,6 +233,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
       content_widget = createControl(widget.control,contentCtrls.first.id, disabled);
     }
 
+
+    // create interactive_viewer
     Widget interactive_viewer = LayoutBuilder(
       builder: (context, constraints) {
         _viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
@@ -265,13 +279,18 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         );
       },
     );
-    double scale = _transformationController.value.getMaxScaleOnAxis();
-    double contentWidth = _childSize != null ? _childSize!.width * scale : 0;
-    double contentHeight = _childSize != null ? _childSize!.height * scale : 0;
 
+    _scale = _transformationController.value.getMaxScaleOnAxis();
+
+    // calc current content width and high
+    double contentWidth = _childSize != null ? _childSize!.width * _scale! : 0;
+    double contentHeight = _childSize != null ? _childSize!.height * _scale! : 0;
+
+    // calc max off_set x and y
     double maxScrollX = math.max(0, contentWidth - (_viewportSize?.width ?? 0));
     double maxScrollY = math.max(0, contentHeight - (_viewportSize?.height ?? 0));
 
+    // check if x and y scrollbars should spawn
     bool check_spawn_x = (maxScrollX > 0 && widget.control.attrBool("xScrollEnabled",true)!);
     bool check_spawn_y = (maxScrollY > 0 &&  widget.control.attrBool("yScrollEnabled",true)!);
 

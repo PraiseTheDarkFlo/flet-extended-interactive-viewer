@@ -67,6 +67,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
   final ScrollController _verticalScrollController = ScrollController();
   Size? _childSize;
   Size? _viewportSize;
+  double? _scale;
 
   @override
   void initState() {
@@ -100,6 +101,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         };
         return  json.encode(eventData);
       case "set_transformation_data":
+        if (_viewportSize == null || _childSize == null) return null;
         var off_set_x = parseDouble(args["offSetX"],0)!;
         var off_set_y = parseDouble(args["offSetY"],0)!;
         var scale = parseDouble(args["scale"],1)!;
@@ -137,7 +139,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         throw Exception("Unknown ExtendedInteractiveViewer method: $method_name");
     }
   }
-
+  //handles when the transformation of the interactive_viewer got changed
   void _onTransformationChanged() {
     if (_ignoreTransformationChange) return;
     if (_viewportSize == null || _childSize == null) return;
@@ -157,9 +159,15 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     _ignorScroll = true;
     _horizontalScrollController.jumpTo(scrollX);
     _verticalScrollController.jumpTo(scrollY);
+    if (mounted && scale != _scale) {
+      setState(() {
+        //rebuild for change scrollbars
+      });
+    }
     _ignorScroll = false;
   }
 
+  //handles when the scrollbars got scrolled
   void _onScroll() {
     if (_ignorScroll) return;
     if (_viewportSize == null || _childSize == null) return;
@@ -181,6 +189,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     _ignoreTransformationChange = false;
   }
 
+  //update if size of child changed
   void _onChildSizeChanged(Size size) {
     if (size != _childSize) {
       setState(() {
@@ -209,6 +218,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
   //build content methode
   @override
   Widget build(BuildContext context) {
+
+    //get child for interactive_viewer
     final contentCtrls = widget.children
     .where((c) => c.name == "content" && c.isVisible)
     .toList();
@@ -220,6 +231,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
       content_widget = createControl(widget.control,contentCtrls.first.id, disabled);
     }
 
+
+    //create interactive_viewer
     Widget interactive_viewer = LayoutBuilder(
       builder: (context, constraints) {
         _viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
@@ -264,13 +277,18 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         );
       },
     );
-    double scale = _transformationController.value.getMaxScaleOnAxis();
-    double contentWidth = _childSize != null ? _childSize!.width * scale : 0;
-    double contentHeight = _childSize != null ? _childSize!.height * scale : 0;
 
+    _scale = _transformationController.value.getMaxScaleOnAxis();
+
+    //calc current content width and high
+    double contentWidth = _childSize != null ? _childSize!.width * _scale! : 0;
+    double contentHeight = _childSize != null ? _childSize!.height * _scale! : 0;
+
+    // calc max off_set x and y
     double maxScrollX = math.max(0, contentWidth - (_viewportSize?.width ?? 0));
     double maxScrollY = math.max(0, contentHeight - (_viewportSize?.height ?? 0));
 
+    // check if x and y scrollbars should spawn
     bool check_spawn_x = (maxScrollX > 0 && widget.control.attrBool("xScrollEnabled",true)!);
     bool check_spawn_y = (maxScrollY > 0 &&  widget.control.attrBool("yScrollEnabled",true)!);
 
