@@ -33,12 +33,12 @@ def main(page: ft.Page):
         ex.interactive_scroll_enabled = not ex.interactive_scroll_enabled
         ex.update()
     extended = FletExtendedInteractiveViewer(
-                    content=ft.Container(text,width=500,height=500,gradient=ft.LinearGradient(
+                    content=ft.Container(text,width=900,height=800,gradient=ft.LinearGradient(
                         begin=ft.alignment.top_left,
                         end=ft.alignment.bottom_right,
                         colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
                     )),
-                    width=300, height=150,constrained=False,pan_enabled=True,
+                    width=400, height=250,constrained=False,pan_enabled=True,
                 )
     text_x_y_scale = ft.Text("offset_x=?, offset_y=?, scale=?")
     page.add(ft.Row([
