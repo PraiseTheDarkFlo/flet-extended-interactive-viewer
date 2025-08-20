@@ -99,8 +99,26 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
           "scale": scale,
         };
         return  json.encode(eventData);
+      case "set_transformation_data":
+        var off_set_x = parseDouble(args["offSetX"],0)!;
+        var off_set_y = parseDouble(args["offSetY"],0)!;
+        var scale = parseDouble(args["scale"],1)!;
+
+        double contentWidth = _childSize!.width * scale;
+        double contentHeight = _childSize!.height * scale;
+
+        double maxScrollX = math.max(0, contentWidth - _viewportSize!.width);
+        double maxScrollY = math.max(0, contentHeight - _viewportSize!.height);
+
+        double scrollX = (-off_set_x).clamp(0.0, maxScrollX);
+        double scrollY = (-off_set_y).clamp(0.0, maxScrollY);
+        Matrix4 newMatrix = Matrix4.identity()
+        ..scale(scale, scale)
+        ..translate(-scrollX / scale, -scrollY / scale);
+        _transformationController.value = newMatrix;
+        return null;
       case "reset":
-        var animationDuration = Duration(milliseconds: int.tryParse(args["animation_duration"] ?? "0") ?? 0);
+        var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
         if (animationDuration == 0) {
           _transformationController.value = Matrix4.identity();
         } else {

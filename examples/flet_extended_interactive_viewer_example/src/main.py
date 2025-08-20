@@ -40,12 +40,15 @@ def main(page: ft.Page):
                     )),
                     width=300, height=150,constrained=False,pan_enabled=True,
                 )
+    #TODO: Fix slidebars when zoomed
+    #TODO: Maybe Scale clamping on the container size so you cant zoom out wider than the child
     text_x_y_scale = ft.Text("offset_x=?, offset_y=?, scale=?")
     page.add(ft.Row([
         ft.Column([text_x_y_scale,
                 extended,
                    ft.Row([ft.Button("toggle pan",on_click=lambda e,ex=extended,text_move=text:on_click(ex,text_move)),ft.Button("toggle interactive_scroll_bar",on_click=lambda e,ex=extended:toggle_interactive(ex))]),ft.Row([ft.Button("toggle scroll_bar_x",on_click=lambda e,ex=extended:toggle_scroll_x(ex)),ft.Button("toggle scroll_bar_y",on_click=lambda e,ex=extended:toggle_scroll_y(ex))]),
                    ft.Button("get_transformation",on_click=lambda e,ex=extended,x_y_scale=text_x_y_scale:get_transformation_click(ex,text_x_y_scale)),
+                   ft.Row([ft.Button("reset",on_click=lambda e,ex=extended:ex.reset()),ft.Button("zoom",on_click=lambda e,ex=extended:ex.zoom(1.25)),ft.Button("set off_set to (100,100,1)",on_click=lambda e,ex=extended:ex.set_transformation_data(offset_x=-100,offset_y=-100))]),
                 ],alignment=ft.MainAxisAlignment.CENTER)],alignment=ft.MainAxisAlignment.CENTER),
 
     )

@@ -154,6 +154,11 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             "reset", arguments={"duration": self._convert_attr_json(animation_duration)}
         )
 
+    def set_transformation_data(self, offset_x: OptionalNumber = None, offset_y: OptionalNumber = None, scale: OptionalNumber = None):
+        self.invoke_method(
+            "set_transformation_data", arguments={"offSetX": self._convert_attr_json(offset_x), "offSetY": self._convert_attr_json(offset_y), "scale": self._convert_attr_json(scale)}
+        )
+
     def zoom(self, factor: Number):
         self.invoke_method("zoom", arguments={"factor": str(factor)})
 
