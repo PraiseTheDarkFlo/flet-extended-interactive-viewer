@@ -34,6 +34,7 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             content: Control,
             x_scroll_enabled: Optional[bool] = None,
             y_scroll_enabled: Optional[bool] = None,
+            over_zoom_enabled: Optional[bool] = None,
             interactive_scroll_enabled: Optional[bool] = None,
             pan_enabled: Optional[bool] = None,
             max_scale: OptionalNumber = None,
@@ -118,6 +119,7 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         self.content = content
         self.x_scroll_enabled = x_scroll_enabled
         self.y_scroll_enabled = y_scroll_enabled
+        self.over_zoom_enabled = over_zoom_enabled
         self.interactive_scroll_enabled = interactive_scroll_enabled
         self.pan_enabled = pan_enabled
         self.scale_enabled = scale_enabled
@@ -170,6 +172,15 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
     @pan_enabled.setter
     def pan_enabled(self, value: Optional[bool]):
         self._set_attr("panEnabled", value)
+
+    # over_zoom_enabled
+    @property
+    def over_zoom_enabled(self) -> bool:
+        return self._get_attr("overZoomEnabled", data_type="bool", def_value=False)
+
+    @over_zoom_enabled.setter
+    def over_zoom_enabled(self, value: Optional[bool]):
+        self._set_attr("overZoomEnabled", value)
 
     # x_scroll_enabled
     @property

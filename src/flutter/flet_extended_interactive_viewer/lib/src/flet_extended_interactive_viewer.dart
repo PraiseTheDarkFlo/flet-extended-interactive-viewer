@@ -85,10 +85,32 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     switch (method_name) {
       case "zoom":
         var factor = parseDouble(args["factor"]);
-        if (factor != null) {
-          _transformationController.value =
-              _transformationController.value.scaled(factor, factor);
+        if (factor == null) return null;
+        if (_viewportSize == null || _childSize == null) return null;
+
+        final translation = _transformationController.value.getTranslation();
+        double scale = _scale!*factor;
+
+        double contentWidth = _childSize!.width * scale;
+        double contentHeight = _childSize!.height * scale;
+
+        // if overZoom is no enabled dont allow zoom that is grater than the content size
+        if(!widget.control.attrBool("overZoomEnabled",false)!){
+          if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height){
+            return null;
+          }
         }
+
+        double maxScrollX = math.max(0.0, contentWidth - _viewportSize!.width);
+        double maxScrollY = math.max(0.0, contentHeight - _viewportSize!.height);
+
+        double scrollX = (-translation.x).clamp(0.0, maxScrollX);
+        double scrollY = (-translation.y).clamp(0.0, maxScrollY);
+
+        Matrix4 newMatrix = Matrix4.identity()
+          ..scale(scale, scale)
+          ..translate(-scrollX/scale, -scrollY/scale);
+        _transformationController.value = newMatrix;;
         return null;
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
@@ -151,8 +173,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     double contentWidth = _childSize!.width * scale;
     double contentHeight = _childSize!.height * scale;
 
-    double maxScrollX = math.max(0, contentWidth - _viewportSize!.width);
-    double maxScrollY = math.max(0, contentHeight - _viewportSize!.height);
+    double maxScrollX = math.max(0.0, contentWidth - _viewportSize!.width);
+    double maxScrollY = math.max(0.0, contentHeight - _viewportSize!.height);
 
     double scrollX = (-translation.x).clamp(0.0, maxScrollX);
     double scrollY = (-translation.y).clamp(0.0, maxScrollY);
@@ -247,8 +269,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         return InteractiveViewer(
           transformationController: _transformationController,
           boundaryMargin: EdgeInsets.zero,
-          minScale: widget.control.attrDouble("maxScale", 2.5)!,
-          maxScale: widget.control.attrDouble("minScale", 0.8)!,
+          minScale: widget.control.attrDouble("minScale", 0.8)!,
+          maxScale: widget.control.attrDouble("maxScale", 2.5)!,
           panEnabled: widget.control.attrBool("panEnabled", true)!,
           scaleEnabled: widget.control.attrBool("scaleEnabled", true)!,
           scaleFactor: widget.control.attrDouble("scaleFactor", 200)!,

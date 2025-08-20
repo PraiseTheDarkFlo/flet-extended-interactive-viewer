@@ -4,6 +4,7 @@ import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
+// child class to handle size change event
 class _ChildSize extends StatefulWidget {
   final Widget child;
   final Function(Size) onSizeChanged;
@@ -55,9 +56,9 @@ class FletExtendedInteractiveViewerControl extends StatefulWidget {
       _FletExtendedInteractiveViewerControlState();
 }
 
-//State control with state attributes
+// state control with state attributes
 class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInteractiveViewerControl> with SingleTickerProviderStateMixin{
-
+  // attributes
   final TransformationController _transformationController = TransformationController();
   late AnimationController _animationController;
   Animation<Matrix4>? _animation;
@@ -84,10 +85,32 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     switch (method_name) {
       case "zoom":
         var factor = parseDouble(args["factor"]);
-        if (factor != null) {
-          _transformationController.value =
-              _transformationController.value.scaled(factor, factor);
+        if (factor == null) return null;
+        if (_viewportSize == null || _childSize == null) return null;
+
+        final translation = _transformationController.value.getTranslation();
+        double scale = _scale!*factor;
+
+        double contentWidth = _childSize!.width * scale;
+        double contentHeight = _childSize!.height * scale;
+
+
+        if(!widget.control.attrBool("overZoomEnabled",false)!){
+          if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height){
+            return null;
+          }
         }
+
+        double maxScrollX = math.max(0.0, contentWidth - _viewportSize!.width);
+        double maxScrollY = math.max(0.0, contentHeight - _viewportSize!.height);
+
+        double scrollX = (-translation.x).clamp(0.0, maxScrollX);
+        double scrollY = (-translation.y).clamp(0.0, maxScrollY);
+
+        Matrix4 newMatrix = Matrix4.identity()
+          ..scale(scale, scale)
+          ..translate(-scrollX/scale, -scrollY/scale);
+        _transformationController.value = newMatrix;;
         return null;
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
@@ -139,7 +162,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         throw Exception("Unknown ExtendedInteractiveViewer method: $method_name");
     }
   }
-  //handles when the transformation of the interactive_viewer got changed
+  // handles when the transformation of the interactive_viewer got changed
   void _onTransformationChanged() {
     if (_ignoreTransformationChange) return;
     if (_viewportSize == null || _childSize == null) return;
@@ -150,24 +173,25 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     double contentWidth = _childSize!.width * scale;
     double contentHeight = _childSize!.height * scale;
 
-    double maxScrollX = math.max(0, contentWidth - _viewportSize!.width);
-    double maxScrollY = math.max(0, contentHeight - _viewportSize!.height);
+    double maxScrollX = math.max(0.0, contentWidth - _viewportSize!.width);
+    double maxScrollY = math.max(0.0, contentHeight - _viewportSize!.height);
 
     double scrollX = (-translation.x).clamp(0.0, maxScrollX);
     double scrollY = (-translation.y).clamp(0.0, maxScrollY);
 
-    _ignorScroll = true;
+    _ignorScroll = true; // prevent loop
     _horizontalScrollController.jumpTo(scrollX);
     _verticalScrollController.jumpTo(scrollY);
+    // check if scale changed so rebuild to generate new slider for the new scale
     if (mounted && scale != _scale) {
       setState(() {
-        //rebuild for change scrollbars
+        // rebuild
       });
     }
     _ignorScroll = false;
   }
 
-  //handles when the scrollbars got scrolled
+  // handles when the scrollbars got scrolled
   void _onScroll() {
     if (_ignorScroll) return;
     if (_viewportSize == null || _childSize == null) return;
@@ -181,7 +205,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     }
     double scale = _transformationController.value.getMaxScaleOnAxis();
 
-    _ignoreTransformationChange = true;
+    _ignoreTransformationChange = true; // prevent loop
     Matrix4 newMatrix = Matrix4.identity()
     ..scale(scale, scale)
     ..translate(-scrollX / scale, -scrollY / scale);
@@ -189,7 +213,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     _ignoreTransformationChange = false;
   }
 
-  //update if size of child changed
+  // update if size of child changed
   void _onChildSizeChanged(Size size) {
     if (size != _childSize) {
       setState(() {
@@ -199,9 +223,10 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     }
   }
 
-  //clean up method
+  // clean up method
   @override
   void dispose() {
+    // clean up all attributes which has objects and/or has listener assigned
     _transformationController.removeListener(_onTransformationChanged);
     _transformationController.dispose();
     _animationController.dispose();
@@ -210,16 +235,15 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     _horizontalScrollController.removeListener(_onScroll);
     _horizontalScrollController.dispose();
 
-    //unsubscribe so no longer methode call gets forwarded
+    // unsubscribe so no longer methode call gets forwarded
     widget.backend.unsubscribeMethods(widget.control.id);
     super.dispose();
   }
 
-  //build content methode
   @override
   Widget build(BuildContext context) {
 
-    //get child for interactive_viewer
+    // get child for interactive_viewer
     final contentCtrls = widget.children
     .where((c) => c.name == "content" && c.isVisible)
     .toList();
@@ -232,7 +256,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     }
 
 
-    //create interactive_viewer
+    // create interactive_viewer
     Widget interactive_viewer = LayoutBuilder(
       builder: (context, constraints) {
         _viewportSize = Size(constraints.maxWidth, constraints.maxHeight);
@@ -245,8 +269,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         return InteractiveViewer(
           transformationController: _transformationController,
           boundaryMargin: EdgeInsets.zero,
-          minScale: widget.control.attrDouble("maxScale", 2.5)!,
-          maxScale: widget.control.attrDouble("minScale", 0.8)!,
+          minScale: widget.control.attrDouble("minScale", 0.8)!,
+          maxScale: widget.control.attrDouble("maxScale", 2.5)!,
           panEnabled: widget.control.attrBool("panEnabled", true)!,
           scaleEnabled: widget.control.attrBool("scaleEnabled", true)!,
           scaleFactor: widget.control.attrDouble("scaleFactor", 200)!,
@@ -280,7 +304,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
 
     _scale = _transformationController.value.getMaxScaleOnAxis();
 
-    //calc current content width and high
+    // calc current content width and high
     double contentWidth = _childSize != null ? _childSize!.width * _scale! : 0;
     double contentHeight = _childSize != null ? _childSize!.height * _scale! : 0;
 

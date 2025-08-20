@@ -38,15 +38,15 @@ def main(page: ft.Page):
                         end=ft.alignment.bottom_right,
                         colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
                     )),
-                    width=400, height=250,constrained=False,pan_enabled=True,
+                    width=400, height=250,constrained=False,pan_enabled=True,over_zoom_enabled=False,
                 )
     text_x_y_scale = ft.Text("offset_x=?, offset_y=?, scale=?")
     page.add(ft.Row([
         ft.Column([text_x_y_scale,
                 extended,
                    ft.Row([ft.Button("toggle pan",on_click=lambda e,ex=extended,text_move=text:on_click(ex,text_move)),ft.Button("toggle interactive_scroll_bar",on_click=lambda e,ex=extended:toggle_interactive(ex))]),ft.Row([ft.Button("toggle scroll_bar_x",on_click=lambda e,ex=extended:toggle_scroll_x(ex)),ft.Button("toggle scroll_bar_y",on_click=lambda e,ex=extended:toggle_scroll_y(ex))]),
-                   ft.Row([ft.Button("reset",on_click=lambda e,ex=extended:ex.reset()),ft.Button("zoom in",on_click=lambda e,ex=extended:ex.zoom(1.25)),ft.Button("zoom out",on_click=lambda e,ex=extended:ex.zoom(0.75))]),
-                   ft.Row([ft.Button("get_transformation",on_click=lambda e, ex=extended, x_y_scale=text_x_y_scale: get_transformation_click(ex,text_x_y_scale)),ft.Button("set_transformation(-100,-100,1)",on_click=lambda e,ex=extended:ex.set_transformation_data(offset_x=-100,offset_y=-100))])
+                   ft.Row([ft.Button("reset",on_click=lambda e,ex=extended:ex.reset(400)),ft.Button("zoom in",on_click=lambda e,ex=extended:ex.zoom(1.25)),ft.Button("zoom out",on_click=lambda e,ex=extended:ex.zoom(0.75))]),
+                   ft.Row([ft.Button("get_transformation",on_click=lambda e, ex=extended, x_y_scale=text_x_y_scale: get_transformation_click(ex,text_x_y_scale)),ft.Button("set_transformation(-100,-100,1)",on_click=lambda e,ex=extended:ex.set_transformation_data(offset_x=-870,offset_y=-100,scale=1.4))])
                    ],alignment=ft.MainAxisAlignment.CENTER)],alignment=ft.MainAxisAlignment.CENTER),
 
     )
