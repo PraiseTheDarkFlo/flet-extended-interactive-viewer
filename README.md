@@ -1,5 +1,5 @@
 # flet-extended-interactive-viewer
-> **FletExtendedInteractiveViewer is a [Flet](https://flet.dev/) control that provides multiple customization options for displaying two-dimensional content.**
+> **Flet-Extended-Interactive-Viewer is a [Flet](https://flet.dev/) control that provides multiple customization options for displaying two-dimensional content.**
 
 ## 🌟 Highlights
 
@@ -18,10 +18,10 @@ This extension was developed as part of a Bachelor Thesis, supervised by [Erik K
 Documentation to this package can be found [here](https://PraiseTheDarkFlo.github.io/flet-extended-interactive-viewer/).
 
 ## 🚀 Example
-### 🎬 Demo
+### Demo
 ![Example](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
 
-### 💻 Code
+### Code
 ```python
 import flet as ft
 
@@ -84,23 +84,26 @@ ft.app(main)
 
 ## ⬇️ Installation
 
-Add dependency to `pyproject.toml` of your Flet app:
 
-* **Git dependency**
+To install the `flet-extended-interactive-viewer` package:
 
-Link to git repository:
-
-```
-dependencies = [
-  "flet-extended-interactive-viewer @ git+https://github.com/PraiseTheDarkFlo//flet-extended-interactive-viewer",
-  "flet>=0.28.3",
-]
-```
-
+- Using `pip`:
+    ```bash
+    pip install flet-extended-interactive-viewer
+    ```
 Build your app:
-```
-flet build macos -v
-```
+- Using Linux:
+    ```bash
+    flet build linux -v
+    ```
+- Using Mac:
+    ```bash
+    flet build macos -v
+    ```
+- Using Windows:
+    ```bash
+    flet build windows -v
+    ```
 
 ## 📝 License
 
