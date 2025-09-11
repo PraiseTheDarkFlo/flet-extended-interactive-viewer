@@ -79,7 +79,8 @@ def main(page: ft.Page):
 ft.app(main)
 ```
 
-![Example](https://github.com/PraiseTheDarkFlo/CellSePi/blob/main/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
+![Example](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
+
 ## ⬇️ Installation
 
 Add dependency to `pyproject.toml` of your Flet app:
