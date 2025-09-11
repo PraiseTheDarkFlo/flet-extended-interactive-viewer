@@ -16,6 +16,13 @@ from flet.core.types import ResponsiveNumber, RotateValue, ScaleValue, OffsetVal
 
 
 class ExtendedInteractiveViewerUpdateEvent(ControlEvent):
+    """
+    ControlEvent for extended interactive viewer.
+    Attributes:
+        self.offset_X (float): The X offset of the extended interactive viewer.
+        self.offset_Y (float): The Y offset of the extended interactive viewer.
+        self.scale (float): The scale of the extended interactive viewer.
+    """
     def __init__(self, e: ControlEvent):
         super().__init__(e.target, e.name, e.data, e.control, e.page)
         d = json.loads(e.data)
@@ -25,7 +32,7 @@ class ExtendedInteractiveViewerUpdateEvent(ControlEvent):
 
 class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
     """
-    FletExtendedInteractiveViewer Control description.
+    FletExtendedInteractiveViewer which extends the functionalities of InteractiveViewer with XY scroll ability.
     """
 
     def __init__(

@@ -188,6 +188,15 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         // rebuild
       });
     }
+    final eventData = {
+      "offset_x": scrollX,
+      "offset_y": scrollY,
+      "scale": scale,
+    };
+    widget.backend.triggerControlEvent(
+        widget.control.id, "interaction_update",
+        json.encode(eventData));
+
     _ignorScroll = false;
   }
 
@@ -275,23 +284,6 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
           scaleEnabled: widget.control.attrBool("scaleEnabled", true)!,
           scaleFactor: widget.control.attrDouble("scaleFactor", 200)!,
           constrained: widget.control.attrBool("constrained", true)!,
-          onInteractionUpdate: !widget.control.isDisabled
-              ? (ScaleUpdateDetails details) {
-            final translation = _transformationController.value
-                .getTranslation();
-            double offset_x = translation.x;
-            double offset_y = translation.y;
-            double scale = _transformationController.value.getMaxScaleOnAxis();
-            final eventData = {
-              "offset_x": offset_x,
-              "offset_y": offset_y,
-              "scale": scale,
-            };
-            widget.backend.triggerControlEvent(
-                widget.control.id, "interaction_update",
-                json.encode(eventData));
-          }
-              : null,
           child: _ChildSize(
             onSizeChanged: _onChildSizeChanged,
             child: content_widget ??
