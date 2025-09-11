@@ -1,24 +1,27 @@
 # flet-extended-interactive-viewer
-> **FletExtendedInteractiveViewer is a Flet control that provides multiple customization options for displaying two-dimensional content.**
+> **FletExtendedInteractiveViewer is a [Flet](https://flet.dev/) control that provides multiple customization options for displaying two-dimensional content.**
 
 ## 🌟 Highlights
 
-- **XY Scrollbars:** Synchronized scrollbars for the InteractiveViewer
-- **XY Scrollbar Options:** Easy to customize the experience e.g. you can disable X scrolling or set the Y scrollbar invisible.
+- **XY Scrollbars:** Synchronized scrollbars for the InteractiveViewer.
+- **XY Scrollbar Options:** Easy to customize the experience e.g. you can disable the interaction with the scrollbars or disable Y scrollbars.
 - **Panning:** Supports panning like `ft.InteractiveViewer`, with synchronized scrollbars. You can also disable panning to use only the scrollbars.
 - **Zoom:** Zoom with the mouse or via a function call. When zooming via a function call, the zoom can be limited to the content size.
 - **Transformation data:** Provides access to the transformation applied to the content.
 
 ## ℹ️ Overview
 
-This extension was developed as part of a Bachelor Thesis, supervised by [Erik Kubaczka](https://github.com/ERIK-KE) at the [Self-Organizing Systems Lab](https://www.bcs.tu-darmstadt.de/welcome/index.en.jsp) of the Technical University Darmstadt. FletExtendedInteractiveViewer is a powerful control for Flet which enables the user to customize an interactive content view experience.
+This extension was developed as part of a Bachelor Thesis, supervised by [Erik Kubaczka](https://github.com/ERIK-KE) at the [Self-Organizing Systems Lab](https://www.bcs.tu-darmstadt.de/welcome/index.en.jsp) of the Technical University Darmstadt. FletExtendedInteractiveViewer is a powerful control for [Flet](https://flet.dev/) which enables the user to customize an interactive content view experience.
 
 ## 📖 Documentation
 
-[Link to documentation](https://PraiseTheDarkFlo.github.io/flet-extended-interactive-viewer/)
+Documentation to this package can be found [here](https://PraiseTheDarkFlo.github.io/flet-extended-interactive-viewer/).
 
 ## 🚀 Example
+### 🎬 Demo
+![Example](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
 
+### 💻 Code
 ```python
 import flet as ft
 
@@ -78,8 +81,6 @@ def main(page: ft.Page):
 
 ft.app(main)
 ```
-
-![Example](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
 
 ## ⬇️ Installation
 
