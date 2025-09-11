@@ -88,19 +88,25 @@ ft.app(main)
 To install the `flet-extended-interactive-viewer` package:
 
 - Using `pip`:
+
     ```bash
     pip install flet-extended-interactive-viewer
     ```
+    After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
+
 Build your app:
 - Using Linux:
+
     ```bash
     flet build linux -v
     ```
 - Using Mac:
+
     ```bash
     flet build macos -v
     ```
 - Using Windows:
+
     ```bash
     flet build windows -v
     ```
