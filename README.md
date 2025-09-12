@@ -119,3 +119,7 @@ Build your app:
 
 This project is licensed under the **MIT license** – see the [LICENSE](LICENSE) file for details.
 
+
+## 💭 Feedback & Contributions
+
+Report bugs or suggest features via [GitHub Issues](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/issues).
