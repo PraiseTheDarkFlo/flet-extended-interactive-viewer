@@ -93,3 +93,5 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/flet-extended-interactive-viewer/

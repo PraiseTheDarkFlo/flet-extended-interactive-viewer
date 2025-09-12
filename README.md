@@ -1,4 +1,8 @@
 # flet-extended-interactive-viewer
+[![PyPI version](https://img.shields.io/pypi/v/flet-extended-interactive-viewer.svg)](https://pypi.org/project/flet-extended-interactive-viewer/)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
+[![Flet](https://img.shields.io/badge/Flet-0.28.3+-green.svg)](https://flet.dev)
+[![License](https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg)](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE)
 > **Flet-Extended-Interactive-Viewer is a [Flet](https://flet.dev/) control that provides multiple customization options for displaying two-dimensional content.**
 
 ## 🌟 Highlights

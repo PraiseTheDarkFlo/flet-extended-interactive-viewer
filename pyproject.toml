@@ -35,7 +35,7 @@ mkdocstrings = { extras = ["python"], version = "*" }
 mkdocs-material = "*"
 
 [tool.setuptools]
-license-files = []
+license-files = ["licence"]
 
 [build-system]
 requires = ["setuptools"]
