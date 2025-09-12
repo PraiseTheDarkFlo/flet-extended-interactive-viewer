@@ -1,28 +1,28 @@
 [project]
 name = "flet-extended-interactive-viewer"
 version = "0.1.0"
-description = "FletExtendedInteractiveViewer control for Flet"
+description = "Flet-Extended-Interactive-Viewer is a Flet control that provides multiple customization options for displaying two-dimensional content."
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-    { name = "Flet contributors", email = "you@example.com" }
+    { name = "Florian Hock", email = "fhock2002@gmail.com" }
 ]
 dependencies = [
-    "flet>=0.25.2",
+    "flet>=0.28.3",
 ]
 
 [project.urls]
-Homepage = "https://mydomain.dev"
-Documentation = "https://github.com/MyGithubAccount/flet-extended-interactive-viewer"
-Repository = "https://github.com/MyGithubAccount/flet-extended-interactive-viewer"
-Issues = "https://github.com/MyGithubAccount/flet-extended-interactive-viewer/issues"
+Homepage = "https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer"
+Documentation = "https://praisethedarkflo.github.io/flet-extended-interactive-viewer/"
+Repository = "https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer"
+Issues = "https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/issues"
 
 [tool.setuptools.package-data]
 "flutter.flet_extended_interactive_viewer" = ["**/*"]
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]==0.25.2",
+    "flet[all]==0.28.3",
     "mkdocs", 
     "mkdocs-material",
     "mkdocstrings[python]"

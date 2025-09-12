@@ -5,11 +5,11 @@ description = ""
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-    { name = "Flet developer", email = "you@example.com" }
+    { name = "Florian Hock", email = "fhock2002@gmail.com" }
 ]
 dependencies = [
-  "flet-extended-interactive-viewer @file:/home/mmdark/PycharmProjects/Extended2dViewer",
-  "flet>=0.25.2",
+  "flet-extended-interactive-viewer @ git+https://github.com/PraiseTheDarkFlo/CellSePi",
+  "flet>=0.28.3",
 ]
 
 [tool.flet]
@@ -31,16 +31,16 @@ copyright = "Copyright (C) 2025 by MyCompany"
 path = "src"
 
 [tool.flet.dev_packages]
-flet-extended-interactive-viewer = "../.." # relative path
+flet-extended-interactive-viewer = "..\\.." # relative path
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]==0.25.2",
+    "flet[all]==0.28.3",
 ]
 
 [tool.uv.sources]
-flet-extended-interactive-viewer = { path = "../../", editable = true }
+flet-extended-interactive-viewer = { path = "..\\..\\", editable = true }
 
 [tool.poetry.group.dev.dependencies]
 flet = {extras = ["all"], version = "0.28.3"}
-flet-extended-interactive-viewer = {path = "../../", develop = true}
+flet-extended-interactive-viewer = {path = "..\\..\\", develop = true}

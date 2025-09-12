@@ -17,11 +17,29 @@ from flet.core.types import ResponsiveNumber, RotateValue, ScaleValue, OffsetVal
 
 class ExtendedInteractiveViewerUpdateEvent(ControlEvent):
     """
-    ControlEvent for extended interactive viewer.
+    Event triggered by `FletExtendedInteractiveViewer` whenever the user interacts with the viewer.
+
     Attributes:
-        self.offset_X (float): The X offset of the extended interactive viewer.
-        self.offset_Y (float): The Y offset of the extended interactive viewer.
-        self.scale (float): The scale of the extended interactive viewer.
+        offset_x (float): The X offset of the content in the Interactive Viewer.
+        offset_y (float): The Y offset of the content in the Interactive Viewer.
+        scale (float): The scale of the content in the Interactive Viewer.
+
+    Example:
+        ```python
+        def update_handler(event: ExtendedInteractiveViewerUpdateEvent):
+            print(event.offset_x, event.offset_y, event.scale)
+
+        FletExtendedInteractiveViewer(
+                    content=ft.Container(width=900,height=800,gradient=ft.LinearGradient(
+                        begin=ft.alignment.top_left,
+                        end=ft.alignment.bottom_right,
+                        colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                    )),
+                    width=400, height=250,
+                    on_interaction_update=update_handler,
+                )
+
+        ```
     """
     def __init__(self, e: ControlEvent):
         super().__init__(e.target, e.name, e.data, e.control, e.page)
@@ -32,7 +50,76 @@ class ExtendedInteractiveViewerUpdateEvent(ControlEvent):
 
 class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
     """
-    FletExtendedInteractiveViewer which extends the functionalities of InteractiveViewer with XY scroll ability.
+    Flet-Extended-Interactive-Viewer is a [Flet](https://flet.dev/) control that provides multiple customization options for displaying two-dimensional content.
+
+    Highlights:
+        - **XY Scrollbars:** Synchronized scrollbars for the InteractiveViewer.
+        - **XY Scrollbar Options:** Easy to customize the experience e.g. you can disable the interaction with the scrollbars or disable Y scrollbars.
+        - **Panning:** Supports panning like `ft.InteractiveViewer`, with synchronized scrollbars. You can also disable panning to use only the scrollbars.
+        - **Zoom:** Zoom with the mouse/touchpad or via a function call. When zooming via a function call, the zoom can be limited to the content size.
+        - **Transformation data:** Provides access to the transformation applied to the content.
+
+
+    Attributes:
+        content (Control): The `Control` to be transformed by the `FletExtendedInteractiveViewer`.
+        x_scroll_enabled (bool): Whether the Interactive Viewer should have an x_scroll_bar.
+
+            **Default:** `True`
+        y_scroll_enabled (bool): Whether the Interactive Viewer should have a y_scroll_bar.
+
+            **Default:** `True`
+        over_zoom_enabled (bool): Whether the Interactive Viewer allows the user with function calls to zoom larger than the content.
+
+            **Default:** `False`
+        interactive_scroll_enabled (bool): Whether the scrollbars should be interactive or not.
+
+            **Default:** `True`
+        pan_enabled (bool): Whether if it should be possible to move in the Interactive Viewer with panning.
+
+            **Default:** `True`
+        max_scale (float): The max possible scaling for zooming with mouse/touchpad.
+
+            **Default:** `2.5`
+        min_scale (float): The min possible scaling for zooming with mouse/touchpad.
+
+            **Default:** `0.8`
+        scale_factor (float): The amount of scale to be performed per pointer scroll.
+
+            **Default:** `200.0`
+        scale_enabled (bool): Whenever it should be possible zoome with mouse/touchpad.
+
+            **Default:** `True`
+        constrained (bool): Whether the normal size constraints at this point in the widget tree are applied to the child.
+
+            **Default:** `True`
+        on_interaction_update (Callable): Fires when the user interacts with the viewer.
+
+            **Event Handler argument type:** `ExtendedInteractiveViewerUpdateEvent`
+
+
+    Example:
+        ```python
+        def update_handler(event: ExtendedInteractiveViewerUpdateEvent):
+            print(event.offset_x, event.offset_y, event.scale)
+
+        FletExtendedInteractiveViewer(content=ft.Container(width=900,height=800,gradient=ft.LinearGradient(
+                        begin=ft.alignment.top_left,
+                        end=ft.alignment.bottom_right,
+                        colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                    )),
+                    x_scroll_enabled = True,
+                    y_scroll_enabled = True,
+                    over_zoom_enabled = False,
+                    interactive_scroll_enabled = True,
+                    pan_enabled = True,
+                    max_scale = 2.5,
+                    min_scale = 0.8,
+                    scale_factor = 0.8,
+                    scale_enabled = True,
+                    constrained = True,
+                    on_interaction_update=update_handler,
+                    )
+        ```
     """
 
     def __init__(
@@ -47,8 +134,8 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             max_scale: OptionalNumber = None,
             min_scale: OptionalNumber = None,
             scale_factor: OptionalNumber = None,
-            constrained: Optional[bool] = None,
             scale_enabled: Optional[bool] = None,
+            constrained: Optional[bool] = None,
             on_interaction_update: Optional[
                 Callable[[ExtendedInteractiveViewerUpdateEvent], None]
             ] = None,
@@ -151,6 +238,26 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         return children
 
     def get_transformation_data(self):
+        """
+        Gets the transformation data which is applied to the content of the Interactive Viewer.
+
+        Returns:
+            offset_x (float): The x offset of the transformation data.
+            offset_y (float): The y offset of the transformation data.
+            scale (float): The scale of the transformation data.
+
+        Example:
+            ```python
+            fei= FletExtendedInteractiveViewer(content=ft.Container(width=900,height=800,gradient=ft.LinearGradient(
+                            begin=ft.alignment.top_left,
+                            end=ft.alignment.bottom_right,
+                            colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                        )))
+
+            offset_x,offset_y,scale = fei.get_transformation_data()
+            print(offset_x, offset_y, scale)
+            ```
+        """
         data = self.invoke_method("get_transformation_data", {}, wait_for_result=True)
         d = json.loads(data)
         offset_x: float = d.get("offset_x")
@@ -158,17 +265,75 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         scale: float = d.get("scale")
         return offset_x, offset_y, scale
 
-    def reset(self, animation_duration: Optional[DurationValue] = None):
-        self.invoke_method(
-            "reset", arguments={"duration": self._convert_attr_json(animation_duration)}
-        )
-
     def set_transformation_data(self, offset_x: OptionalNumber = None, offset_y: OptionalNumber = None, scale: OptionalNumber = None):
+        """
+        Sets the transformation data which is applied to the content of the Interactive Viewer.
+
+        Attributes:
+            offset_x (float): The x offset of the transformation data.
+            offset_y (float): The y offset of the transformation data.
+            scale (float): The scale of the transformation data.
+
+        Example:
+            ```python
+            fei= FletExtendedInteractiveViewer(content=ft.Container(width=900,height=800,gradient=ft.LinearGradient(
+                            begin=ft.alignment.top_left,
+                            end=ft.alignment.bottom_right,
+                            colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                        )))
+
+            fei.set_transformation_data(-100.0, -100.0, 1.0)
+            ```
+        """
         self.invoke_method(
             "set_transformation_data", arguments={"offSetX": self._convert_attr_json(offset_x), "offSetY": self._convert_attr_json(offset_y), "scale": self._convert_attr_json(scale)}
         )
 
+    def reset(self, animation_duration: Optional[DurationValue] = None):
+        """
+        Resets the transformation done on the content of the Interactive Viewer.
+        By default, the reset happens with no animation (immediately).
+
+        Attributes:
+            animation_duration (DurationValue): The duration of the animation.
+
+        Example:
+            ```python
+            fei= FletExtendedInteractiveViewer(content=ft.Container(width=900,height=800,gradient=ft.LinearGradient(
+                            begin=ft.alignment.top_left,
+                            end=ft.alignment.bottom_right,
+                            colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                        )))
+
+            fei.reset(400)
+            ```
+        """
+        self.invoke_method(
+            "reset", arguments={"duration": self._convert_attr_json(animation_duration)}
+        )
+
     def zoom(self, factor: Number):
+        """
+        Zooming in or out in the Interactive Viewer.
+
+        Arguments:
+            factor (float): The zoom factor.
+
+                Values below `1` will zoom out, values above `1` will zoom in.
+
+        Example:
+            ```python
+            fei= FletExtendedInteractiveViewer(content=ft.Container(width=900,height=800,gradient=ft.LinearGradient(
+                            begin=ft.alignment.top_left,
+                            end=ft.alignment.bottom_right,
+                            colors=[ft.Colors.PINK, ft.Colors.ORANGE_700],
+                        )),
+                        over_zoom_enabled = False,
+                        )
+
+            fei.zoom(1.25) #Zooms in
+            ```
+        """
         self.invoke_method("zoom", arguments={"factor": str(factor)})
 
     # pan_enabled
@@ -240,9 +405,6 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
     # content property
     @property
     def content(self) -> Control:
-        """
-        List of widgets to be displayed in the carousel.
-        """
         return self.__content
 
     @content.setter
