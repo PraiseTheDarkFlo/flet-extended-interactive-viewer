@@ -109,8 +109,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         double scrollY = (-translation.y).clamp(0.0, maxScrollY);
 
         final focalPoint = Offset(
-          _viewportSize!.width / 2.0,
-          _viewportSize!.height / 2.0,
+          (_viewportSize!.width / 2.0) + scrollX,
+          (_viewportSize!.height / 2.0) + scrollY,
         );
 
         Matrix4 current = _transformationController.value.clone();
