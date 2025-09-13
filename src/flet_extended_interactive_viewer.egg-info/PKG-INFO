@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: flet-extended-interactive-viewer
-Version: 0.1.0
+Version: 0.1.1
 Summary: Flet-Extended-Interactive-Viewer is a Flet control that provides multiple customization options for displaying two-dimensional content.
 Author-email: Florian Hock <fhock2002@gmail.com>
 Project-URL: Homepage, https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer
@@ -132,3 +132,7 @@ Build your app:
 
 This project is licensed under the **MIT license** – see the [LICENSE](LICENSE) file for details.
 
+
+## 💭 Feedback & Contributions
+
+Report bugs or suggest features via [GitHub Issues](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/issues).
