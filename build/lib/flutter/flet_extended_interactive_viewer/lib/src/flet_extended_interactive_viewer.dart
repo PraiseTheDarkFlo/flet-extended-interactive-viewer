@@ -113,12 +113,15 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
           _viewportSize!.height / 2.0,
         );
 
-        Matrix4 newMatrix = Matrix4.identity()
-          ..translate(-focalPoint.dx - scrollX / scale,
-                      -focalPoint.dy - scrollY / scale)
-          ..scale(scale, scale);
+        Matrix4 current = _transformationController.value.clone();
 
-        _transformationController.value = newMatrix;
+        current.translate(focalPoint.dx, focalPoint.dy);
+
+        current.scale(factor, factor);
+
+        current.translate(-focalPoint.dx, -focalPoint.dy);
+
+        _transformationController.value = current;
         return null;
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
