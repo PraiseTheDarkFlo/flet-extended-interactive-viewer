@@ -108,20 +108,19 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         double scrollX = (-translation.x).clamp(0.0, maxScrollX);
         double scrollY = (-translation.y).clamp(0.0, maxScrollY);
 
-        final focalPoint = Offset(
-          (_viewportSize!.width / 2.0) + scrollX,
-          (_viewportSize!.height / 2.0) + scrollY,
-        );
+        final matrix = _transformationController.value;
 
-        Matrix4 current = _transformationController.value.clone();
+        final screenCenter = Offset(_viewportSize!.width / 2, _viewportSize!.height / 2);
 
-        current.translate(focalPoint.dx, focalPoint.dy);
+        final contentCenter = MatrixUtils.transformPoint(matrix.clone()..invert(), screenCenter);
 
-        current.scale(factor, factor);
-
-        current.translate(-focalPoint.dx, -focalPoint.dy);
+        Matrix4 current = matrix.clone()
+          ..translate(contentCenter.dx, contentCenter.dy)
+          ..scale(factor, factor)
+          ..translate(-contentCenter.dx, -contentCenter.dy);
 
         _transformationController.value = current;
+
         return null;
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
