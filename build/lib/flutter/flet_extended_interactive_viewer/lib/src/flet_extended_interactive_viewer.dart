@@ -151,7 +151,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         Matrix4 newMatrix = Matrix4.identity()
         ..scale(scale, scale)
         ..translate(-scrollX / scale, -scrollY / scale);
-        if (_animation == 0) {
+        if (animationDuration == 0) {
           _transformationController.value = newMatrix;
         } else {
           _animationController.duration = animationDuration;
@@ -220,6 +220,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         widget.control.id, "interaction_update",
         json.encode(eventData));
 
+    _scale = scale;
     _ignorScroll = false;
   }
 
