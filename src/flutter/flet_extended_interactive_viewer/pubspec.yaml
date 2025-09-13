@@ -1,7 +1,7 @@
 name: flet_extended_interactive_viewer
 description: Flet-Extended-Interactive-Viewer is a Flet control that provides multiple customization options for displaying two-dimensional content.
 repository: https://github.com/MyGithubAccount/flet-extended-interactive-viewer/src/flutter/flet_extended_interactive_viewer
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/MyGithubAccount/flet-extended-interactive-viewer
 
 environment:

@@ -5,3 +5,6 @@
 ## 0.1.1
 * FIX Zooming: Zooming now is applied on the middle point of the Interactive Viewer, when not at the corner.
 * Added Animation: Added Animation for set_translation_data()
+
+## 0.1.2
+* Bug fix animation

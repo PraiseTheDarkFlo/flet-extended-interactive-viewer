@@ -150,7 +150,6 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         var off_set_y = parseDouble(args["offSetY"],0)!;
         var scale = parseDouble(args["scale"],1)!;
         var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
-        animationDuration = Duration(milliseconds: 1000);
 
         double contentWidth = _childSize!.width * scale;
         double contentHeight = _childSize!.height * scale;
