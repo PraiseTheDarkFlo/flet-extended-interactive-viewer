@@ -98,6 +98,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         double contentWidth = _childSize!.width * newScale;
         double contentHeight = _childSize!.height * newScale;
 
+        // Prevent zooming out so far that the content is smaller than the viewport,
+        // unless overZoomEnabled is true.
         final overZoomEnabled = widget.control.attrBool("overZoomEnabled", false) ?? false;
         if (!overZoomEnabled) {
           if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height) {
@@ -156,20 +158,29 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
 
         double scrollX = (-off_set_x).clamp(0.0, maxScrollX);
         double scrollY = (-off_set_y).clamp(0.0, maxScrollY);
-        Matrix4 newMatrix = Matrix4.identity()
-        ..scale(scale, scale)
-        ..translate(-scrollX / scale, -scrollY / scale);
         if (animationDuration == 0) {
-          _transformationController.value = newMatrix;
+          _transformationController.value = Matrix4.identity()
+            ..scale(scale, scale)
+            ..translate(-scrollX / scale, -scrollY / scale);
         } else {
+          final startScale = _scale!;
+          final startTranslation = _transformationController.value.getTranslation();
+
+          final scaleTween = Tween<double>(begin: startScale, end: scale);
+          final offsetTween = Tween<Offset>(
+            begin: Offset(-startTranslation.x * startScale, -startTranslation.y * startScale),
+            end: Offset(scrollY, scrollY),
+          );
+
           _animationController.duration = animationDuration;
-          _animation = Matrix4Tween(
-            begin: _transformationController.value,
-            end: newMatrix,
-          ).animate(_animationController)
-            ..addListener(() {
-              _transformationController.value = _animation!.value;
-            });
+          _animationController.addListener(() {
+            final s = scaleTween.evaluate(_animationController);
+            final offset = offsetTween.evaluate(_animationController);
+
+            _transformationController.value = Matrix4.identity()
+              ..scale(s, s)
+              ..translate(-offset.dx / s, -offset.dy / s);
+          });
           _animationController.forward(from: 0);
         }
         return null;
