@@ -169,7 +169,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
           final scaleTween = Tween<double>(begin: startScale, end: scale);
           final offsetTween = Tween<Offset>(
             begin: Offset(-startTranslation.x * startScale, -startTranslation.y * startScale),
-            end: Offset(scrollY, scrollY),
+            end: Offset(scrollX, scrollY),
           );
 
           _animationController.duration = animationDuration;
