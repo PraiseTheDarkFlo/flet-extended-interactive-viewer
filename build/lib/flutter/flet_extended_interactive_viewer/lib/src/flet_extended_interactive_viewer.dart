@@ -106,6 +106,8 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
               _viewportSize!.height / _childSize!.height,
             );
             factor = newScale / _scale!;
+            contentWidth = _childSize!.width * newScale;
+            contentHeight = _childSize!.height * newScale;
           }
         }
 
@@ -121,13 +123,13 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         double clampedX = (-translation.x).clamp(0.0, maxScrollX);
         double clampedY = (-translation.y).clamp(0.0, maxScrollY);
 
+        if (clampedX == maxScrollX) clampedX = maxScrollX;
+        if (clampedY == maxScrollY) clampedY = maxScrollY;
+
         newMatrix.setTranslationRaw(-clampedX, -clampedY, translation.z);
 
         _transformationController.value = newMatrix;
-        _scale = newScale;
-
         return null;
-
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
         double offset_x = translation.x;
