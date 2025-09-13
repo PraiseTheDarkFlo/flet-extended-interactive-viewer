@@ -96,7 +96,6 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
 
         // Prevent zooming out so far that the content is smaller than the viewport,
         // unless overZoomEnabled is true.
-
         if(!widget.control.attrBool("overZoomEnabled",false)!){
           if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height){
             return null;
@@ -120,7 +119,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
           ..translate(-focalPoint.dx - scrollX / scale,
                       -focalPoint.dy - scrollY / scale);
 
-        _transformationController.value = newMatrix;;
+        _transformationController.value = newMatrix;
         return null;
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
@@ -219,8 +218,6 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
     widget.backend.triggerControlEvent(
         widget.control.id, "interaction_update",
         json.encode(eventData));
-
-    _scale = scale;
     _ignorScroll = false;
   }
 

@@ -296,7 +296,7 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             ```
         """
         self.invoke_method(
-            "set_transformation_data", arguments={"offSetX": self._convert_attr_json(offset_x), "offSetY": self._convert_attr_json(offset_y), "scale": self._convert_attr_json(scale), "animDuration": self._convert_attr_json(animation_duration)},
+            "set_transformation_data", arguments={"offSetX": self._convert_attr_json(offset_x), "offSetY": self._convert_attr_json(offset_y), "scale": self._convert_attr_json(scale), "duration": self._convert_attr_json(animation_duration)},
         )
 
     def reset(self, animation_duration: Optional[DurationValue] = None):
