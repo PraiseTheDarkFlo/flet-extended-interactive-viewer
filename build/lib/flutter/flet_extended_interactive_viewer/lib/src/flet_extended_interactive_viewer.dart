@@ -69,6 +69,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
   Size? _childSize;
   Size? _viewportSize;
   double? _scale;
+  VoidCallback _animationListener = (){};
 
   @override
   void initState() {
@@ -174,16 +175,17 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
           );
 
           _animationController.duration = animationDuration;
-          _animationController.addListener(() {
+          _animationController.removeListener(_animationListener);
+          _animationListener = () {
             final s = scaleTween.evaluate(_animationController);
             final offset = offsetTween.evaluate(_animationController);
 
             _transformationController.value = Matrix4.identity()
               ..scale(s, s)
               ..translate(-offset.dx / s, -offset.dy / s);
-          });
+          };
+          _animationController.addListener(_animationListener);
           _animationController.forward(from: 0);
-          _animationController.reset();
         }
         return null;
       case "reset":
