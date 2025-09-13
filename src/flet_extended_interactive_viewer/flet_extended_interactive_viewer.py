@@ -265,14 +265,24 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
         scale: float = d.get("scale")
         return offset_x, offset_y, scale
 
-    def set_transformation_data(self, offset_x: OptionalNumber = None, offset_y: OptionalNumber = None, scale: OptionalNumber = None):
+    def set_transformation_data(self, offset_x: OptionalNumber = None, offset_y: OptionalNumber = None, scale: OptionalNumber = None, animation_duration: Optional[DurationValue] = None):
         """
         Sets the transformation data which is applied to the content of the Interactive Viewer.
 
         Attributes:
             offset_x (float): The x offset of the transformation data.
+
+                **Default:** `0.0`
+
             offset_y (float): The y offset of the transformation data.
+
+                **Default:** `0.0`
             scale (float): The scale of the transformation data.
+
+                **Default:** `0.0`
+            animation_duration (DurationValue): The duration of the animation.
+
+                **Default:** `0`
 
         Example:
             ```python
@@ -286,7 +296,7 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
             ```
         """
         self.invoke_method(
-            "set_transformation_data", arguments={"offSetX": self._convert_attr_json(offset_x), "offSetY": self._convert_attr_json(offset_y), "scale": self._convert_attr_json(scale)}
+            "set_transformation_data", arguments={"offSetX": self._convert_attr_json(offset_x), "offSetY": self._convert_attr_json(offset_y), "scale": self._convert_attr_json(scale), "animDuration": self._convert_attr_json(animation_duration)},
         )
 
     def reset(self, animation_duration: Optional[DurationValue] = None):
@@ -296,6 +306,8 @@ class FletExtendedInteractiveViewer(ConstrainedControl, AdaptiveControl):
 
         Attributes:
             animation_duration (DurationValue): The duration of the animation.
+
+                **Default:** `0`
 
         Example:
             ```python

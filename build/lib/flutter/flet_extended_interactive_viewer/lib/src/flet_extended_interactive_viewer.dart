@@ -94,7 +94,9 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         double contentWidth = _childSize!.width * scale;
         double contentHeight = _childSize!.height * scale;
 
-        // if overZoom is no enabled dont allow zoom that is grater than the content size
+        // Prevent zooming out so far that the content is smaller than the viewport,
+        // unless overZoomEnabled is true.
+
         if(!widget.control.attrBool("overZoomEnabled",false)!){
           if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height){
             return null;
@@ -107,9 +109,17 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         double scrollX = (-translation.x).clamp(0.0, maxScrollX);
         double scrollY = (-translation.y).clamp(0.0, maxScrollY);
 
+        final focalPoint = Offset(
+          _viewportSize!.width / 2.0,
+          _viewportSize!.height / 2.0,
+        );
+
         Matrix4 newMatrix = Matrix4.identity()
+          ..translate(focalPoint.dx, focalPoint.dy)
           ..scale(scale, scale)
-          ..translate(-scrollX/scale, -scrollY/scale);
+          ..translate(-focalPoint.dx - scrollX / scale,
+                      -focalPoint.dy - scrollY / scale);
+
         _transformationController.value = newMatrix;;
         return null;
       case "get_transformation_data":
@@ -128,6 +138,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         var off_set_x = parseDouble(args["offSetX"],0)!;
         var off_set_y = parseDouble(args["offSetY"],0)!;
         var scale = parseDouble(args["scale"],1)!;
+        var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
 
         double contentWidth = _childSize!.width * scale;
         double contentHeight = _childSize!.height * scale;
@@ -140,7 +151,19 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         Matrix4 newMatrix = Matrix4.identity()
         ..scale(scale, scale)
         ..translate(-scrollX / scale, -scrollY / scale);
-        _transformationController.value = newMatrix;
+        if (_animation == 0) {
+          _transformationController.value = newMatrix;
+        } else {
+          _animationController.duration = animationDuration;
+          _animation = Matrix4Tween(
+            begin: _transformationController.value,
+            end: newMatrix,
+          ).animate(_animationController)
+            ..addListener(() {
+              _transformationController.value = _animation!.value;
+            });
+          _animationController.forward(from: 0);
+        }
         return null;
       case "reset":
         var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
