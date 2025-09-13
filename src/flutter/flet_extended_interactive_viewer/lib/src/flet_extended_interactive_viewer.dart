@@ -149,6 +149,10 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         var off_set_y = parseDouble(args["offSetY"],0)!;
         var scale = parseDouble(args["scale"],1)!;
         var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
+        animationDuration = Duration(milliseconds: 1000);
+        scale = 2.0;
+        off_set_x = 50.0;
+        off_set_y = 50.0;
 
         double contentWidth = _childSize!.width * scale;
         double contentHeight = _childSize!.height * scale;
@@ -182,6 +186,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
               ..translate(-offset.dx / s, -offset.dy / s);
           });
           _animationController.forward(from: 0);
+          _animationController.reset();
         }
         return null;
       case "reset":
