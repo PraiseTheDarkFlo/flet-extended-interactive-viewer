@@ -88,40 +88,46 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         if (factor == null) return null;
         if (_viewportSize == null || _childSize == null) return null;
 
-        final translation = _transformationController.value.getTranslation();
-        double scale = _scale!*factor;
-
-        double contentWidth = _childSize!.width * scale;
-        double contentHeight = _childSize!.height * scale;
-
-        // Prevent zooming out so far that the content is smaller than the viewport,
-        // unless overZoomEnabled is true.
-        if(!widget.control.attrBool("overZoomEnabled",false)!){
-          if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height){
-            return null;
-          }
-        }
-
-        double maxScrollX = math.max(0.0, contentWidth - _viewportSize!.width);
-        double maxScrollY = math.max(0.0, contentHeight - _viewportSize!.height);
-
-        double scrollX = (-translation.x).clamp(0.0, maxScrollX);
-        double scrollY = (-translation.y).clamp(0.0, maxScrollY);
-
         final matrix = _transformationController.value;
-
         final screenCenter = Offset(_viewportSize!.width / 2, _viewportSize!.height / 2);
 
         final contentCenter = MatrixUtils.transformPoint(matrix.clone()..invert(), screenCenter);
 
-        Matrix4 current = matrix.clone()
+        double newScale = _scale! * factor;
+
+        double contentWidth = _childSize!.width * newScale;
+        double contentHeight = _childSize!.height * newScale;
+
+        final overZoomEnabled = widget.control.attrBool("overZoomEnabled", false) ?? false;
+        if (!overZoomEnabled) {
+          if (contentWidth < _viewportSize!.width || contentHeight < _viewportSize!.height) {
+            newScale = math.max(
+              _viewportSize!.width / _childSize!.width,
+              _viewportSize!.height / _childSize!.height,
+            );
+            factor = newScale / _scale!;
+          }
+        }
+
+        Matrix4 newMatrix = matrix.clone()
           ..translate(contentCenter.dx, contentCenter.dy)
           ..scale(factor, factor)
           ..translate(-contentCenter.dx, -contentCenter.dy);
 
-        _transformationController.value = current;
+        final translation = newMatrix.getTranslation();
+        double maxScrollX = math.max(0.0, contentWidth - _viewportSize!.width);
+        double maxScrollY = math.max(0.0, contentHeight - _viewportSize!.height);
+
+        double clampedX = (-translation.x).clamp(0.0, maxScrollX);
+        double clampedY = (-translation.y).clamp(0.0, maxScrollY);
+
+        newMatrix.setTranslationRaw(-clampedX, -clampedY, translation.z);
+
+        _transformationController.value = newMatrix;
+        _scale = newScale;
 
         return null;
+
       case "get_transformation_data":
         final translation = _transformationController.value.getTranslation();
         double offset_x = translation.x;
