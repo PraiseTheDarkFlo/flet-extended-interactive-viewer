@@ -569,7 +569,10 @@
 
 
 <h1 id="flet-extended-interactive-viewer">Flet-Extended-Interactive-Viewer<a class="headerlink" href="#flet-extended-interactive-viewer" title="Permanent link">#</a></h1>
-<p><a href="https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg" /></a></p>
+<p><a href="https://pypi.org/project/flet-extended-interactive-viewer/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/flet-extended-interactive-viewer.svg" /></a>
+<a href="https://python.org"><img alt="Python" src="https://img.shields.io/badge/Python-3.9+-blue.svg" /></a>
+<a href="https://flet.dev"><img alt="Flet" src="https://img.shields.io/badge/Flet-0.28.3+-green.svg" /></a>
+<a href="https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg" /></a></p>
 <blockquote>
 <p><strong>Flet-Extended-Interactive-Viewer is a <a href="https://flet.dev/">Flet</a> control that provides multiple customization options for displaying two-dimensional content.</strong></p>
 </blockquote>
@@ -647,14 +650,22 @@
 </span></code></pre></div>
 <h2 id="installation">⬇️ Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h2>
 <p>To install the <code>flet-extended-interactive-viewer</code> package:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="pip" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="pip">pip</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="uv" name="__tabbed_1" type="radio" /><input id="pip" name="__tabbed_1" type="radio" /><input id="poetry" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="uv">uv</label><label for="pip">pip</label><label for="poetry">poetry</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>flet-extended-interactive-viewer<span class="w">  </span><span class="c1"># (1)!</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>add<span class="w"> </span>flet-extended-interactive-viewer
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>flet-extended-interactive-viewer<span class="w">  </span><span class="c1"># (1)!</span>
 </span></code></pre></div>
 <ol>
 <li>After this, you will have to manually add this package to your <code>requirements.txt</code> or <code>pyproject.toml</code>.</li>
 </ol>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>poetry<span class="w"> </span>add<span class="w"> </span>flet-extended-interactive-viewer
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -662,15 +673,15 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="linux" name="__tabbed_2" type="radio" /><input id="mac" name="__tabbed_2" type="radio" /><input id="windows" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="linux">linux</label><label for="mac">mac</label><label for="windows">windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>flet<span class="w"> </span>build<span class="w"> </span>linux<span class="w"> </span>-v
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>flet<span class="w"> </span>build<span class="w"> </span>linux<span class="w"> </span>-v
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>flet<span class="w"> </span>build<span class="w"> </span>macos<span class="w"> </span>-v
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>flet<span class="w"> </span>build<span class="w"> </span>macos<span class="w"> </span>-v
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>flet<span class="w"> </span>build<span class="w"> </span>windows<span class="w"> </span>-v
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>flet<span class="w"> </span>build<span class="w"> </span>windows<span class="w"> </span>-v
 </span></code></pre></div>
 </div>
 </div>
