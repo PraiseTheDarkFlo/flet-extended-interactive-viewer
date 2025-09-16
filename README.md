@@ -91,13 +91,23 @@ ft.app(main)
 
 To install the `flet-extended-interactive-viewer` package:
 
+- Using `uv`:
+    ```bash
+    uv add flet-extended-interactive-viewer
+    ```
+ 
 - Using `pip`:
-
     ```bash
     pip install flet-extended-interactive-viewer
     ```
     After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
 
+
+- Using `poetry`:
+    ```bash
+    poetry add flet-extended-interactive-viewer
+    ```
+  
 Build your app:
 - Using Linux:
 

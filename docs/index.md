@@ -1,6 +1,9 @@
 
 
 # Flet-Extended-Interactive-Viewer
+[![PyPI version](https://img.shields.io/pypi/v/flet-extended-interactive-viewer.svg)](https://pypi.org/project/flet-extended-interactive-viewer/)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
+[![Flet](https://img.shields.io/badge/Flet-0.28.3+-green.svg)](https://flet.dev)
 [![License](https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg)](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE)
 > **Flet-Extended-Interactive-Viewer is a [Flet](https://flet.dev/) control that provides multiple customization options for displaying two-dimensional content.**
 
@@ -80,6 +83,13 @@ ft.app(main)
 ## ⬇️ Installation
 
 To install the `flet-extended-interactive-viewer` package:
+
+
+=== "uv"
+    ```bash
+    uv add flet-extended-interactive-viewer
+    ```
+
 === "pip"
     ```bash
     pip install flet-extended-interactive-viewer  # (1)!
@@ -87,6 +97,10 @@ To install the `flet-extended-interactive-viewer` package:
 
     1. After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
 
+=== "poetry"
+    ```bash
+    poetry add flet-extended-interactive-viewer
+    ```
 
 
 Build your app:
