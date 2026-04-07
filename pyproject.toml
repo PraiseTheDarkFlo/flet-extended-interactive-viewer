@@ -1,0 +1,35 @@
+[project]
+name = "flet-extended-interactive-viewer"
+version = "0.2.0"
+description = "FletExtendedInteractiveViewer is a powerful 2D navigation control for Flet that adds synchronized scrollbars and enhanced transformation control to the standard InteractiveViewer."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Florian Hock", email = "fhock2002@gmail.com" }
+]
+dependencies = [
+    "flet>=0.84.0",
+]
+
+[dependency-groups]
+dev = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]"
+]
+
+[project.urls]
+Homepage = "https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer"
+Documentation = "https://praisethedarkflo.github.io/flet-extended-interactive-viewer/"
+Repository = "https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer"
+Issues = "https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/issues"
+
+[tool.setuptools.package-data]
+"flutter.flet_extended_interactive_viewer" = ["**/*"]
+
+[tool.setuptools]
+license-files = ["licence"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
