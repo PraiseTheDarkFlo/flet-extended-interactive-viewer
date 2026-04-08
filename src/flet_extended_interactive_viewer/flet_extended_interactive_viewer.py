@@ -65,6 +65,7 @@ class FletExtendedInteractiveViewer(ft.LayoutControl):
     content: Annotated[Control,V.visible_control]
     """
     The Control to be transformed.
+    
     Raises:
         ValueError: If it is not visible.
     """

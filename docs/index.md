@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg)](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE)
 > **Flet-Extended-Interactive-Viewer is a powerful 2D navigation control for [Flet](https://flet.dev/) that adds synchronized scrollbars and enhanced transformation control to the standard InteractiveViewer.**
 
-## 📚 API Reference
+## API Reference
 ### Classes
 
 - **[FletExtendedInteractiveViewer](FletExtendedInteractiveViewer.md)** - The Class of the extension.
@@ -15,7 +15,7 @@
 - **[FEIUpdateEvent](FletExtendedInteractiveViewer.md)** - Update Event of the extension.
 
 
-## 🚀 Example
+## Example
 ### Demo
 ![Example](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
 
@@ -100,7 +100,7 @@ def main(page: ft.Page):
 ft.run(main)
 ```
 
-## ⬇️ Installation
+## Installation
 !!! warning "Custom Control"
     **Important:** This extension provides a custom control with Dart code. It will **NOT** work with the default `flet run` command. You **must** build your project **once** for your platform (Windows, macOS, or Linux).
 
