@@ -1,7 +1,7 @@
 # flet-extended-interactive-viewer
 [![PyPI version](https://img.shields.io/pypi/v/flet-extended-interactive-viewer.svg)](https://pypi.org/project/flet-extended-interactive-viewer/)
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
-[![Flet](https://img.shields.io/badge/Flet-0.28.3+-green.svg)](https://flet.dev)
+[![Flet](https://img.shields.io/badge/Flet-0.84.0+-green.svg)](https://flet.dev)
 [![License](https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg)](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE)
 > **Flet-Extended-Interactive-Viewer is a powerful 2D navigation control for [Flet](https://flet.dev/) that adds synchronized scrollbars and enhanced transformation control to the standard InteractiveViewer.**
 
