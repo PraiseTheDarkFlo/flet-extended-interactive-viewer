@@ -99,7 +99,7 @@ class FletExtendedInteractiveViewer(ft.LayoutControl):
 
     Raises:
         ValueError: If it is not strictly greater than `0`.
-        ValueError: If it is not greater than or equal to :attr:`min_scale`.
+        ValueError: If it is not greater than or equal to `min_scale`.
     """
     min_scale: Annotated[
         ft.Number,
@@ -112,7 +112,7 @@ class FletExtendedInteractiveViewer(ft.LayoutControl):
 
     Raises:
         ValueError: If it is not strictly greater than `0`.
-        ValueError: If it is not less than or equal to :attr:`max_scale`.
+        ValueError: If it is not less than or equal to `max_scale`.
     """
     scale_enabled: bool = True
     """
@@ -132,7 +132,7 @@ class FletExtendedInteractiveViewer(ft.LayoutControl):
     constrained: bool = False
     """
     Whether the normal size constraints at this point in the control tree are applied \
-    to the :attr:`content`.
+    to the `content`.
 
     If set to `False`, then the content will be given infinite constraints. This
     is often useful when a content should be bigger than this `InteractiveViewer`.
@@ -159,11 +159,11 @@ class FletExtendedInteractiveViewer(ft.LayoutControl):
     async def get_transformation_data(self) -> tuple[float, float, float]:
         """
         Gets the transformation data for this viewer.
+
         Returns:
-            tuple[float, float, float]: A tuple containing:
-            - offset_x: The horizontal translation of the content.
-            - offset_y: The vertical translation of the content.
-            - scale: The current scale factor.
+            offset_x (float): The horizontal translation of the content.
+            offset_y (float): The vertical translation of the content.
+            scale (float): The current scale factor.
         """
         data = await self._invoke_method("get_transformation_data", {})
         return data["offset_x"], data["offset_y"], data["scale"]
@@ -209,8 +209,8 @@ class FletExtendedInteractiveViewer(ft.LayoutControl):
                 zoom out.
 
         Note:
-            The resulting scale is NOT clamped to :attr:`min_scale` or :attr:`max_scale`.
-            The only restriction applied is based on :attr:`over_zoom_enabled`
+            The resulting scale is NOT clamped to `min_scale` or `max_scale`.
+            The only restriction applied is based on `over_zoom_enabled`
             to prevent the content from shrinking smaller than the viewport.
         """
         await self._invoke_method("zoom", arguments={"factor": factor})

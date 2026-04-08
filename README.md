@@ -109,7 +109,8 @@ ft.run(main)
 ```
 
 ## ⬇️ Installation
-
+> [!WARNING]
+> **Custom Control:** This extension requires a one-time build. It will **NOT** work with the default `flet run` command unless you have previously built the app for your platform.
 
 To install the `flet-extended-interactive-viewer` package:
 

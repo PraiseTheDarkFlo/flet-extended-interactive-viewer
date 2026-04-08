@@ -101,6 +101,8 @@ ft.run(main)
 ```
 
 ## ⬇️ Installation
+!!! warning "Custom Control"
+    **Important:** This extension provides a custom control with Dart code. It will **NOT** work with the default `flet run` command. You **must** build your project **once** for your platform (Windows, macOS, or Linux).
 
 To install the `flet-extended-interactive-viewer` package:
 
