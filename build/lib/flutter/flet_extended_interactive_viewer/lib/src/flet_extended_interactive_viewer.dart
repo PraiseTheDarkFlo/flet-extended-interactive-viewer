@@ -139,7 +139,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         var off_set_x = parseDouble(args["offSetX"],0)!;
         var off_set_y = parseDouble(args["offSetY"],0)!;
         var scale = parseDouble(args["scale"],1)!;
-        var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
+        var animationDuration = parseDuration(args["duration"]?? 0);
 
         double contentWidth = _childSize!.width * scale;
         double contentHeight = _childSize!.height * scale;
@@ -178,7 +178,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
         }
         return null;
       case "reset":
-        var animationDuration = Duration(milliseconds: int.tryParse(args["duration"] ?? "0") ?? 0);
+        var animationDuration = parseDuration(args["duration"] ?? 0);
         if (animationDuration == 0) {
           _transformationController.value = Matrix4.identity();
         } else {
@@ -305,7 +305,7 @@ class _FletExtendedInteractiveViewerControlState extends State<FletExtendedInter
       mainAxisMargin: 2.0,
       crossAxisMargin: 2.0,
       trackBorderColor: null,
-      thumbColor: WidgetStatePropertyAll(widget.control.getColor("thumb_color", context)),
+      thumbColor: WidgetStatePropertyAll(widget.control.getColor("thumbs_color", context)),
     );
 
     // create interactive_viewer

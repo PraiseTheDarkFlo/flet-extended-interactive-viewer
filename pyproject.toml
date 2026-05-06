@@ -1,6 +1,6 @@
 [project]
 name = "flet-extended-interactive-viewer"
-version = "0.2.0"
+version = "0.2.1"
 description = "FletExtendedInteractiveViewer is a powerful 2D navigation control for Flet that adds synchronized scrollbars and enhanced transformation control to the standard InteractiveViewer."
 readme = "README.md"
 requires-python = ">=3.10"

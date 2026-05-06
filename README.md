@@ -1,6 +1,6 @@
 # flet-extended-interactive-viewer
 [![PyPI version](https://img.shields.io/pypi/v/flet-extended-interactive-viewer.svg)](https://pypi.org/project/flet-extended-interactive-viewer/)
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Flet](https://img.shields.io/badge/Flet-0.84.0+-green.svg)](https://flet.dev)
 [![License](https://img.shields.io/github/license/PraiseTheDarkFlo/flet-extended-interactive-viewer.svg)](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/LICENSE)
 > **Flet-Extended-Interactive-Viewer is a powerful 2D navigation control for [Flet](https://flet.dev/) that adds synchronized scrollbars and enhanced transformation control to the standard InteractiveViewer.**
@@ -8,22 +8,22 @@
 > [!IMPORTANT]
 > **Update:** Upgraded to **Flet v0.84.0** and introduced customizable scrollbar thumb colors via `thumbs_color`.
 
-## 🌟 Key Features:
+## Key Features:
 - **Synchronized XY Scrollbars:** Real-time visual feedback and manual scrolling for both axes, perfectly synced with panning and zoom.
 - **Granular Navigation:** Toggle panning, scroll-axis visibility, and scrollbar interaction independently to suit your tool's needs.
 - **Precision Zooming:** Smooth zoom control via mouse/touchpad or function calls, with optional constraints to keep content within the viewport.
 - **Transformation API:** Direct programmatic access to current offsets (X, Y) and scale factors for real-time UI synchronization.
 - **Flexible Layouts:** Supports both constrained and unconstrained content, making it ideal for everything from document viewers to infinite canvas editors.
 
-## ℹ️ Overview
+## Overview
 
 This extension was developed as part of a Bachelor Thesis, supervised by [Erik Kubaczka](https://github.com/ERIK-KE) at the [Self-Organizing Systems Lab](https://www.bcs.tu-darmstadt.de/welcome/index.en.jsp) of the Technical University Darmstadt. FletExtendedInteractiveViewer is a powerful control for [Flet](https://flet.dev/) which enables the user to customize an interactive content view experience.
 
-## 📖 Documentation
+## Documentation
 
 Documentation to this package can be found [here](https://PraiseTheDarkFlo.github.io/flet-extended-interactive-viewer/).
 
-## 🚀 Example
+## Example
 ### Demo
 ![Example](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/blob/master/docs/gifs/usage_extended_interactive_viewer.gif?raw=true)
 
@@ -108,7 +108,7 @@ def main(page: ft.Page):
 ft.run(main)
 ```
 
-## ⬇️ Installation
+## Installation
 > [!WARNING]
 > **Custom Control:** This extension requires a one-time build. It will **NOT** work with the default `flet run` command unless you have previously built the app for your platform.
 
@@ -148,11 +148,11 @@ Build your app:
     flet build windows -v
     ```
 
-## 📝 License
+## License
 
 This project is licensed under the **MIT license** – see the [LICENSE](LICENSE) file for details.
 
 
-## 💭 Feedback & Contributions
+## Feedback & Contributions
 
 Report bugs or suggest features via [GitHub Issues](https://github.com/PraiseTheDarkFlo/flet-extended-interactive-viewer/issues).
